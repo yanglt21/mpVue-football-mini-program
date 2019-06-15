@@ -1,23 +1,31 @@
 <template>
-  <div>
-    1
+  <div class="container">
+    <my-swiper :imageList="imageList" width="100%" 
+               :indicatorDots="swiperOption.indicatorDots" 
+               :autoplay="swiperOption.autoplay"
+               :circular="swiperOption.circular"></my-swiper>
   </div>
 </template>
 
 <script>
-
+import MySwiper from '../../components/Swiper'
 export default {
   data () {
     return {
-      motto: 'Hello miniprograme',
-      userInfo: {
-        nickName: 'mpvue',
-        avatarUrl: 'http://mpvue.com/assets/logo.png'
+      imageList: [
+        'http://psdme4dz2.bkt.clouddn.com/avatar/root1559397165626.jpg',
+        'http://psdme4dz2.bkt.clouddn.com/avatar/majiaao1559320046685.jpg'
+      ],
+      swiperOption: {
+        indicatorDots: true,
+        autoplay: true,
+        circular: true
       }
     }
   },
 
   components: {
+    MySwiper
   },
 
   methods: {
@@ -69,27 +77,27 @@ export default {
   margin-bottom: 5px;
   border: 1px solid #ccc;
 }
-.all{
-  width:7.5rem;
-  height:1rem;
-  background-color:blue;
+.all {
+  width: 7.5rem;
+  height: 1rem;
+  background-color: blue;
 }
-.all:after{
-  display:block;
-  content:'';
-  clear:both;
+.all:after {
+  display: block;
+  content: "";
+  clear: both;
 }
-.left{
-  float:left;
-  width:3rem;
-  height:1rem;
-  background-color:red;
+.left {
+  float: left;
+  width: 3rem;
+  height: 1rem;
+  background-color: red;
 }
 
-.right{
-  float:left;
-  width:4.5rem;
-  height:1rem;
-  background-color:green;
+.right {
+  float: left;
+  width: 4.5rem;
+  height: 1rem;
+  background-color: green;
 }
 </style>
