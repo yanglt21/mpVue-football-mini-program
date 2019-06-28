@@ -2,7 +2,7 @@
   <swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular">
       <block v-for="(item,index) in imageList" :key="index">
           <swiper-item class="swiper-item">
-              <image mode="widthFix" :src="item" :style="{width:width}"></image>
+              <image mode="widthFix" :src="item.img_url" :style="{width:width}"></image>
           </swiper-item>
       </block>
   </swiper>

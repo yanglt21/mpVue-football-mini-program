@@ -18,9 +18,11 @@ const Http = {
         dataType: 'json',
         responseType: 'text',
         success: (result) => {
+          wx.hideLoading()
           resolve(result)
         },
         fail: (errResult) => {
+          wx.hideLoading()
           reject(errResult)
         },
         complete: () => {
