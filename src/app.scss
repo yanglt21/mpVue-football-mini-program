@@ -1,10 +1,16 @@
 $subject-color: #16b13a;
+$base-color: #140B32;
+$user-center-color: #3F51B5;
 .container {
   width: 100vw;
   height: auto;
   min-height: 100vh;
+  background-color: $base-color;
+  &-white {
+    @extend .container ;
+    background-color: white;
+  }
 }
-
 .flex {
   display: flex;
 

@@ -1,11 +1,12 @@
 {
   "pages": [
     "pages/home/main",
-    "pages/user/userCenter/main"
+    "pages/user/userCenter/main",
+    "pages/data/home/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#16b13a",
+    "navigationBarBackgroundColor": "#140B32",
     "navigationBarTitleText": "约个球",
     "navigationBarTextStyle": "white"
   },
@@ -21,6 +22,11 @@
       "iconPath": "static/tabs/home-common.png",
       "selectedIconPath": "static/tabs/home-activity.png"
     }, {
+      "text": "足球数据",
+      "pagePath": "pages/data/home/main",
+      "iconPath": "static/tabs/home-common.png",
+      "selectedIconPath": "static/tabs/home-activity.png"
+    }, {
       "text": "个人中心",
       "pagePath": "pages/user/userCenter/main",
       "iconPath": "static/tabs/user-common.png",
@@ -28,16 +34,24 @@
     }],
 
     "items": [{
-      "name": "首页",
-      "pagePath": "pages/home/main",
-      "icon": "static/tabs/home-common.png",
-      "activeIcon": "static/tabs/home-activity.png"
-    }, {
-      "name": "个人中心",
-      "pagePath": "pages/user/userCenter/main",
-      "icon": "static/tabs/user-common.png",
-      "activeIcon": "static/tabs/user-activity.png"
-    }],
+        "name": "首页",
+        "pagePath": "pages/home/main",
+        "icon": "static/tabs/home-common.png",
+        "activeIcon": "static/tabs/home-activity.png"
+      },
+      {
+        "name": "足球数据",
+        "pagePath": "pages/data/home/main",
+        "icon": "static/tabs/home-common.png",
+        "activeIcon": "static/tabs/home-activity.png"
+      },
+      {
+        "name": "个人中心",
+        "pagePath": "pages/user/userCenter/main",
+        "icon": "static/tabs/user-common.png",
+        "activeIcon": "static/tabs/user-activity.png"
+      }
+    ],
     "position": "bottom"
   }
 }

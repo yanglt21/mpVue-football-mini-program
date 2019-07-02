@@ -5,6 +5,7 @@ const HostDongQiuDi = 'https://api.dongqiudi.com/data/v1' // 懂球帝接口
 const Url = {
   home: Host + '/home',
   userCenter: Host + '/user',
-  rank: HostDongQiuDi + '/team_ranking/0'
+  rank: HostDongQiuDi + '/team_ranking/0?',
+  getOpenId: Host + '/getOpenId'
 }
 module.exports = Url

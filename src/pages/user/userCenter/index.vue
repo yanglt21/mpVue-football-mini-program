@@ -1,6 +1,11 @@
 <template>
-  <div class="app">
-    <div class="box"></div>
+  <div class="container">
+    <div class="width-100 flex-row-y-center user-content">
+      <button class="width-100 flex-row-y-center" open-type="getUserInfo" @getuserinfo='onGetUserInfo'>
+        <image class="user-icon" :src="userIcon" mode="widthFix"></image>
+        <div>立即登录</div>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -11,35 +16,41 @@ export default {
   components: {},
   props: {},
   data () {
-    return {}
+    return {
+      userIcon: '/static/images/user_icon.png'
+    }
   },
   watch: {},
   computed: {},
   methods: {
-    fetchHomePage () {
-      this.$http.get(Url.rank, {
-        season_id: 14225,
-        version: 0,
-        refer: 'data_tab',
-        type: 'total_ranking',
-        from: 'msite_com'
-      }).then((res) => {
-        debugger
-      })
-    },
-    test () {
-      this.$http.get(Url.test, {
-      }).then((res) => {
-        debugger
+    onGetUserInfo (ev) {
+      const detail = ev.mp.detail
+      console.log(JSON.parse(detail.rawData))
+      debugger
+      this.$http.getWxCode().then((res) => {
+        const code = res.code
+        console.log(code)
+        this.$http.post(Url.getOpenId, {
+          code: code
+        }).then(res => {
+          debugger
+        })
       })
     }
   },
   created () {},
   mounted () {
-    this.test()
-    this.fetchHomePage()
   }
 }
 </script>
 <style scoped lang="scss">
+.user-content {
+  height: 20vh;
+  box-sizing: content-box;
+  background-color:#302b63;
+  color: white;
+}
+.user-icon {
+  width: 80px;
+}
 </style>

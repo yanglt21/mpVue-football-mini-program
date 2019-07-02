@@ -59,6 +59,30 @@ const Http = {
         }
       })
     })
+  },
+
+  /**
+   *  登录获取code
+  */
+  getWxCode: function () {
+    wx.showLoading({
+      title: '登陆中',
+      mask: true
+    })
+    return new Promise((resolve, reject) => {
+      wx.login({
+        timeout: 10000,
+        success: (result) => {
+          resolve(result)
+        },
+        fail: (failResult) => {
+          reject(failResult)
+        },
+        complete: () => {
+          wx.hideLoading()
+        }
+      })
+    })
   }
 }
 export default Http
