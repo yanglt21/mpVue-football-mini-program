@@ -24,6 +24,8 @@ export default {
       mpvue.setStorageSync('logs', logs)
     }
   },
+  onHide () {
+  },
   log () {
     console.log(`log at:${Date.now()}`)
   }

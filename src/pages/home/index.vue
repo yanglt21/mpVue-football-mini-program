@@ -1,5 +1,6 @@
 <template>
   <div class="container flex-column-x-center">
+    <loading v-if="showLoading"></loading>
     <my-swiper
       :imageList="bannerList"
       width="100%"
@@ -25,6 +26,7 @@
 
 <script>
 import MySwiper from '../../components/Swiper'
+import Loading from '../../components/Loading'
 const Url = require('../../utils/Url.js')
 export default {
   data () {
@@ -35,12 +37,14 @@ export default {
         autoplay: true,
         circular: true
       },
-      isLogin: false
+      isLogin: false,
+      showLoading: true
     }
   },
 
   components: {
-    MySwiper
+    MySwiper,
+    Loading
   },
 
   methods: {
@@ -73,6 +77,7 @@ export default {
   created () {
     this.fetchHomeData()
     console.log(this.$http)
+    this.showLoading = false
     // let app = getApp()
   }
 }
