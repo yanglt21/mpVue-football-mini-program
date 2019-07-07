@@ -11,7 +11,7 @@
             <image :src="userInfo.avatarUrl" mode="widthFix" class="user-icon-login"></image>
             <div class="user-info-content flex-column-y-center">
                 <div class="nike-name">{{userInfo.nickName}}</div>
-                <div class="user-info-btn">个人信息</div>
+                <div class="user-info-btn" @click="actionUserInformation">个人信息</div>
             </div>
       </block>
     </div>
@@ -44,6 +44,7 @@ export default {
     */
     fetchUserCenter () {
       console.log('用户token:', model.token)
+      debugger
       this.$http.post(Url.userCenter, {
         token: model.token || null
       }).then(res => {
@@ -97,12 +98,19 @@ export default {
       model.sex = userInfo.gender === 1 ? '男' : '女'
       model.nickName = userInfo.nickName
       model.province = userInfo.province
+    },
+    actionUserInformation () {
+      wx.navigateTo({
+        url: '/pages/user/userInformation/main'
+      })
     }
   },
   created () {
-    this.fetchUserCenter()
   },
   mounted () {
+  },
+  onShow () {
+    this.fetchUserCenter()
   }
 }
 </script>

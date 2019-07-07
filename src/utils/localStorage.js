@@ -1,4 +1,4 @@
-const model = require('./model')
+let model = require('./model')
 const KEY = 'USER_MODEL'
 const LocalStorage = {
   setStorage () {
@@ -9,6 +9,26 @@ const LocalStorage = {
   },
   asyncLoadStorageUserData () {
     return wx.getStorageSync(KEY)
+  },
+  clearStorageUserData (cb) {
+    const self = this
+    wx.removeStorage({
+      key: KEY,
+      success: (result) => {
+        self.clearUserInfo()
+        cb(result)
+      }
+    })
+  },
+  clearUserInfo (obj) {
+    obj.isLogin = false
+    obj.token = ''
+    obj.nickName = ''
+    obj.openId = ''
+    obj.country = ''
+    obj.sex = ''
+    obj.province = ''
+    obj.userId = ''
   },
   asyncStorageUserData (callback = {}) {
     wx.setStorage({

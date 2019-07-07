@@ -7,6 +7,7 @@ const Url = {
   home: Host + '/home',
   userCenter: Host + '/userCenter',
   rank: HostDongQiuDi + '/team_ranking/0?',
-  login: Host + '/login'
+  login: Host + '/login',
+  logout: Host + '/logout'
 }
 module.exports = Url
