@@ -79,6 +79,7 @@ export default {
           const data = res.data.data
           model.token = data._3rd_session
           model.openId = data.open_id
+          model.user_id = data.user_id
           this.saveUserInfo(userInfo)
           localStorage.asyncStorageUserData()
           this.fetchUserCenter()
