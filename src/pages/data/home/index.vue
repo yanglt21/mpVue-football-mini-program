@@ -1,12 +1,36 @@
 <template>
   <div class="container">
     <view class="data-bar" v-on:click="changeRankLeague">
-      <div :class="selectIndex == 0 ? 'data-bar-item-activity' : 'data-bar-item'" data-type="china" data-index="0">中超</div>
-      <div :class="selectIndex == 1 ? 'data-bar-item-activity' : 'data-bar-item'" data-type="english" data-index="1">英超</div>
-      <div :class="selectIndex == 2 ? 'data-bar-item-activity' : 'data-bar-item'" data-type="spain" data-index="2">西甲</div>
-      <div :class="selectIndex == 3 ? 'data-bar-item-activity' : 'data-bar-item'" data-type="dermany" data-index="3">德甲</div>
-      <div :class="selectIndex == 4 ? 'data-bar-item-activity' : 'data-bar-item'" data-type="italy" data-index="4">意甲</div>
-      <div :class="selectIndex == 5 ? 'data-bar-item-activity' : 'data-bar-item'" data-type="french" data-index="5">法甲</div>
+      <div
+        :class="selectIndex == 0 ? 'data-bar-item-activity' : 'data-bar-item'"
+        data-type="china"
+        data-index="0"
+      >中超</div>
+      <div
+        :class="selectIndex == 1 ? 'data-bar-item-activity' : 'data-bar-item'"
+        data-type="english"
+        data-index="1"
+      >英超</div>
+      <div
+        :class="selectIndex == 2 ? 'data-bar-item-activity' : 'data-bar-item'"
+        data-type="spain"
+        data-index="2"
+      >西甲</div>
+      <div
+        :class="selectIndex == 3 ? 'data-bar-item-activity' : 'data-bar-item'"
+        data-type="dermany"
+        data-index="3"
+      >德甲</div>
+      <div
+        :class="selectIndex == 4 ? 'data-bar-item-activity' : 'data-bar-item'"
+        data-type="italy"
+        data-index="4"
+      >意甲</div>
+      <div
+        :class="selectIndex == 5 ? 'data-bar-item-activity' : 'data-bar-item'"
+        data-type="french"
+        data-index="5"
+      >法甲</div>
     </view>
     <div class="rank-content">
       <div class="flex-row rank-content-item rank-header">
@@ -29,6 +53,9 @@
         <div>{{item.goals_pro}}/{{item.goals_against}}</div>
         <div>{{item.points}}</div>
       </div>
+    </div>
+    <div class="tips">
+      <pre>{{rankData.description}}</pre>
     </div>
   </div>
 </template>
@@ -62,6 +89,10 @@ export default {
         .then(res => {
           const content = res.data.content.rounds[0].content
           this.rankData = content
+          this.rankData.description = res.data.content.description.replace(
+            '/\n/g',
+            '<br/>'
+          )
         })
     },
     getLeagueType (leagueName) {
@@ -102,9 +133,9 @@ Page {
     font-size: 14px;
     font-weight: 500;
     &-activity {
-      @extend .data-bar-item ;
-      color: #6441A5;
-    } 
+      @extend .data-bar-item;
+      color: #6441a5;
+    }
   }
 }
 .rank-content {
@@ -128,5 +159,10 @@ Page {
   margin-top: 10px;
   border-bottom: 1px solid #24243e;
   padding-bottom: 10px;
+}
+.tips {
+  font-size: 12px;
+  color: white;
+  padding: 10px 5px;
 }
 </style>

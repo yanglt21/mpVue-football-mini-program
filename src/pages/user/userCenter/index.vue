@@ -44,7 +44,6 @@ export default {
     */
     fetchUserCenter () {
       console.log('用户token:', model.token)
-      debugger
       this.$http.post(Url.userCenter, {
         token: model.token || null
       }).then(res => {
@@ -80,13 +79,13 @@ export default {
           const data = res.data.data
           model.token = data._3rd_session
           model.openId = data.open_id
-          model.user_id = data.user_id
+          model.userId = data.user_id
           this.saveUserInfo(userInfo)
           localStorage.asyncStorageUserData()
           this.fetchUserCenter()
         } else {
           wx.showToast({
-            title: res.msg,
+            title: res.data.msg,
             mask: false
           })
         }
