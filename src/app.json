@@ -3,7 +3,8 @@
     "pages/home/main",
     "pages/user/userCenter/main",
     "pages/data/home/main",
-    "pages/user/userInformation/main"
+    "pages/user/userInformation/main",
+    "pages/team/createTeam/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

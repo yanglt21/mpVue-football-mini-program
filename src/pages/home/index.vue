@@ -9,7 +9,7 @@
       :circular="swiperOption.circular"
     ></my-swiper>     
     <div class="width-100 flex-row box" v-if="!isLogin">
-      <div class="flex-row-center banner-btn">
+      <div class="flex-row-center banner-btn" @click="handleCreateTeam">
         <image class="home-box-image" src="/static/images/create_team.png"></image>
         <span>创建球队</span>
       </div>
@@ -70,6 +70,11 @@ export default {
             title: res.data.msg
           })
         }
+      })
+    },
+    handleCreateTeam () {
+      wx.navigateTo({
+        url: '/pages/team/createTeam/main'
       })
     }
   },

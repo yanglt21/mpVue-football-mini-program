@@ -73,6 +73,7 @@ export default {
         })
     },
     standardUserInfo (userInfo) {
+      if (this.userInfoList.length !== 0) return
       this.userInfoList.push({
         title: '昵称',
         value: userInfo.user_name
