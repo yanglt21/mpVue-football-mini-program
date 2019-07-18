@@ -2,6 +2,9 @@
     "navigationBarTitleText": "创建球队",
     "usingComponents": {
         "van-field": "/static/vant/field/index",
-        "van-cell-group": "/static/vant/cell-group/index"
+        "van-cell-group": "/static/vant/cell-group/index",
+        "van-area": "/static/vant/area/index",
+        "van-popup": "/static/vant/popup/index",
+        "van-picker": "/static/vant/picker/index"
       }
 }
