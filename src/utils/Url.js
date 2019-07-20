@@ -9,6 +9,9 @@ const Url = {
   rank: HostDongQiuDi + '/team_ranking/0?',
   login: Host + '/login',
   logout: Host + '/logout',
-  getUserInformation: Host + '/get/userInfomation'
+  getUserInformation: Host + '/get/userInfomation',
+  getCreateInfo: Host + '/team/createInfo',
+  createTeam: Host + '/team/create'
+
 }
 module.exports = Url
