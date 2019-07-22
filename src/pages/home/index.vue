@@ -9,9 +9,13 @@
       :circular="swiperOption.circular"
     ></my-swiper>     
     <div class="width-100 flex-row box" v-if="!isLogin">
-      <div class="flex-row-center banner-btn" @click="handleCreateTeam">
+      <div class="flex-row-center banner-btn" @click="handleCreateTeam" v-if="!isCreatedTeam">
         <image class="home-box-image" src="/static/images/create_team.png"></image>
         <span>创建球队</span>
+      </div>
+      <div class="flex-row-center banner-btn" @click="handlMineTeam" v-else>
+        <image class="home-box-image" src="/static/images/create_team.png"></image>
+        <span>我的球队</span>
       </div>
       <div class="flex-row-center banner-btn">
         <image class="home-box-image" src="/static/images/join_team.png"></image>
@@ -28,6 +32,7 @@
 import MySwiper from '../../components/Swiper'
 import Loading from '../../components/Loading'
 const Url = require('../../utils/Url.js')
+const Model = require('../../utils/model')
 export default {
   data () {
     return {
@@ -38,7 +43,8 @@ export default {
         circular: true
       },
       isLogin: false,
-      showLoading: true
+      showLoading: true,
+      isCreatedTeam: false
     }
   },
 
@@ -61,10 +67,13 @@ export default {
       // throw {message: 'custom test'}
     },
     fetchHomeData () {
-      this.$http.post(Url.home, {}).then(res => {
+      this.$http.post(Url.home, {
+        open_id: Model.openId || null
+      }).then(res => {
         if (res.data.status) {
           const data = res.data.data
           this.bannerList = data.banner
+          this.isCreatedTeam = data.is_created_team
         } else {
           wx.showToast({
             title: res.data.msg
@@ -73,17 +82,25 @@ export default {
       })
     },
     handleCreateTeam () {
+      if (!Model.isLogin) return
       wx.navigateTo({
         url: '/pages/team/createTeam/main'
+      })
+    },
+    handlMineTeam () {
+      if (!Model.isLogin) return
+      wx.navigateTo({
+        url: '/pages/team/teamPage/main'
       })
     }
   },
 
   created () {
-    this.fetchHomeData()
-    console.log(this.$http)
-    this.showLoading = false
     // let app = getApp()
+  },
+  onShow () {
+    this.fetchHomeData()
+    this.showLoading = false
   }
 }
 </script>

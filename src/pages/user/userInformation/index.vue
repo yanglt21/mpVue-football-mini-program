@@ -8,7 +8,10 @@
     <div class="width-90 flex-row-space-between user-info-cell" v-for="(item,index) in userInfoList" 
          v-bind:key="index">
          <div>{{item.title}}</div>
-         <div>{{item.value}}</div>
+         <div class="flex-row-y-center">
+           {{item.value}}
+           <div>></div>
+         </div>
     </div>
     <div class="width-90 log-out" @click="logout">退出登录</div>
   </div>
@@ -76,17 +79,23 @@ export default {
       if (this.userInfoList.length !== 0) return
       this.userInfoList.push({
         title: '昵称',
-        value: userInfo.user_name
+        value: userInfo.user_name || '-'
       },
       {
         title: '性别',
-        value: userInfo.sex
+        value: userInfo.sex || '编辑'
       }, {
         title: '城市',
-        value: userInfo.province
+        value: userInfo.province || '编辑'
       }, {
         title: '国籍',
-        value: userInfo.country
+        value: userInfo.country || '编辑'
+      }, {
+        title: '年龄',
+        value: userInfo.age || '编辑'
+      }, {
+        title: '位置',
+        value: userInfo.position || '编辑'
       })
     }
   },
@@ -108,6 +117,7 @@ export default {
   text-align: center;
   border-radius: 10rpx;
   margin-top: 100rpx;
+  margin-bottom: 100rpx;
 }
 .user-image-icon {
   width: 100px;

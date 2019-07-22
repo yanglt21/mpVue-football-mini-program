@@ -11,7 +11,7 @@ const Url = {
   logout: Host + '/logout',
   getUserInformation: Host + '/get/userInfomation',
   getCreateInfo: Host + '/team/createInfo',
-  createTeam: Host + '/team/create'
-
+  createTeam: Host + '/team/create',
+  getTeamBaseData: Host + '/team/data'
 }
 module.exports = Url

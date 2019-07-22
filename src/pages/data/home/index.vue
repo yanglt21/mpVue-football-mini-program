@@ -105,9 +105,10 @@ export default {
     }
   },
   created () {
-    this.fetchRank()
   },
-  mounted () {}
+  mounted () {
+    this.fetchRank()
+  }
 }
 </script>
 <style scoped lang="scss">

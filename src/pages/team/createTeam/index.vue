@@ -12,9 +12,42 @@
           class="information-cell-btn"
         >{{haveSelectCity ? teamLocation.city :'选择'}}</div>
       </div>
+      <div class="width-90 flex-column information-cell">
+        <div class="information-cell-title">球衣颜色</div>
+        <div class="information-cell-title-small flex-row-y-center">主场球衣<a class="information-cell-title-wrong">*</a></div>
+        <div class="width-100 information-cell-color">
+          <div
+            data-type="home"
+            :data-item="item"
+            @click="handleSelectColor"
+            v-for="(item,index) in teamMainColor"
+            v-bind:key="index"
+            class="team-main-color flex-row-center"
+            :style="{'background-color':item}"
+          >
+            <img src="../../../../static/images/create_team_selected.png" 
+                 v-if="item === homeColor" class="select-icon">
+          </div>
+        </div>
+        <div class="information-cell-title-small">客场球衣</div>
+        <div class="width-100 information-cell-color">
+          <div
+            data-type="away"
+            :data-item="item"
+            @click="handleSelectColor"
+            v-for="(item,index) in teamMainColor"
+            v-bind:key="index"
+            class="team-main-color flex-row-center"
+            :style="{'background-color':item}"
+          >
+            <img src="../../../../static/images/create_team_selected.png" 
+                 v-if="item === awayColor" class="select-icon">
+          </div>
+        </div>
+      </div>
       <div class="width-90 flex-column-space-between information-cell">
         <div class="information-cell-title">介绍</div>
-        <textarea v-model="teamIntroduce"></textarea>
+        <textarea class="information-cell-textarea" v-model="teamIntroduce"></textarea>
       </div>
       <div class="width-90 flex-column information-cell">
         <div class="information-cell-title">标签</div>
@@ -28,7 +61,7 @@
           >{{item.title}}</div>
         </div>
       </div>
-      <div class="width-72 create-btn" @click="handleCreateTeam">成立球队</div>
+      <div :class="isCreatedTeam ? 'width-72 create-btn-disable' : 'width-72 create-btn' "  @click="handleCreateTeam">成立球队</div>
     </div>
     <van-popup
       :show="showPopup"
@@ -52,9 +85,9 @@
 <script>
 const Area = require('../../../utils/area.js')
 let teamLocationTemp = {}
-const Url = require('../../../utils/Url.js')
+const Url = require('../../../utils/Url')
 const Util = require('../../../utils/util')
-
+const Model = require('../../../utils/model')
 export default {
   name: 'CreateTeam',
   components: {},
@@ -71,7 +104,11 @@ export default {
       },
       haveSelectCity: false,
       labelList: [],
-      selectLabelList: []
+      selectLabelList: [],
+      teamMainColor: [],
+      homeColor: '',
+      awayColor: '',
+      isCreatedTeam: false
     }
   },
   watch: {},
@@ -84,7 +121,9 @@ export default {
       this.handleShowPopup()
     },
     confirmSelectCity (ev) {
-      this.teamLocation = teamLocationTemp
+      if (teamLocationTemp.city !== undefined) {
+        this.teamLocation = teamLocationTemp
+      }
       this.haveSelectCity = true
       this.handleShowPopup()
     },
@@ -111,11 +150,15 @@ export default {
     },
     fetchPageData () {
       this.$http
-        .get(Url.getCreateInfo, {})
+        .get(Url.getCreateInfo, {
+          open_id: Model.openId
+        })
         .then(res => {
           if (res.data.status) {
             const data = res.data.data
+            this.isCreatedTeam = data.is_created_team
             this.labelList = data.label_list
+            this.teamMainColor = data.team_main_color
           } else {
             wx.showToast({
               title: res.data.msg
@@ -127,7 +170,10 @@ export default {
         })
     },
     handleCreateTeam () {
-      if (this.teamName === '') {
+      if (this.isCreatedTeam) {
+        Util.showToast('您已经成立过球队了')
+        return
+      } else if (this.teamName === '') {
         Util.showToast('请输入球队名')
         return
       } else if (teamLocationTemp === {}) {
@@ -136,26 +182,47 @@ export default {
       } else if (this.teamIntroduce === '') {
         Util.showToast('介绍一下您的球队吧')
         return
+      } else if (this.homeColor === '') {
+        Util.showToast('请选择球队的主场球衣颜色')
+        return
       }
       let list = this.getLabelSelectList()
       const templateData = {
+        open_id: Model.openId,
         team_name: this.teamName,
         team_introduce: this.teamIntroduce,
-        team_location: this.teamLocation,
-        label_list: list
+        location: this.teamLocation,
+        label_list: list,
+        home_color: this.homeColor,
+        away_color: this.awayColor || null
       }
-      this.$http.post(Url.createTeam, templateData).then((res) => {
-        debugger
+      this.$http.post(Url.createTeam, templateData).then(res => {
+        if (res.data.status) {
+          wx.redirectTo({
+            url: '/pages/team/teamPage/main'
+          })
+        } else {
+          Util.showToast(res.data.msg)
+        }
       })
     },
     getLabelSelectList () {
       let arr = []
-      this.labelList.map((item) => {
+      this.labelList.map(item => {
         if (item.isSelected === true) {
           arr.push(item.title)
         }
       })
       return arr
+    },
+    handleSelectColor (ev) {
+      const type = ev.currentTarget.dataset.type
+      const color = ev.currentTarget.dataset.item
+      if (type === 'home') {
+        this.homeColor = this.homeColor !== '' ? '' : color
+      } else {
+        this.awayColor = this.awayColor !== '' ? '' : color
+      }
     }
   },
   created () {},
@@ -172,12 +239,30 @@ export default {
   border-bottom: 1px solid #a9a9a9;
   &-title {
     color: white;
+    &-small {
+      @extend .information-cell-title;
+      font-size: 16px;
+      margin-top: 20rpx;
+      margin-bottom: 20rpx;
+    }
+    &-wrong {
+      color: red;
+      margin-left: 10rpx;
+    }
   }
   &-input {
     background-color: $base-color;
     color: rgba(188, 104, 234, 1);
   }
-  &-btn {
+  &-color {
+    @extend .information-cell ;
+    padding: 10rpx 0px;
+    border: none;
+  }
+  &-textarea {
+    border: 1px solid rgba(188, 104, 234, 1);
+    margin-top: 10rpx;
+    padding: 20rpx;
   }
 }
 .create-btn {
@@ -196,6 +281,11 @@ export default {
   margin-top: 80rpx;
   margin-bottom: 80rpx;
 }
+.create-btn-disable {
+  @extend .create-btn ;
+  background: #a9a9a9;
+  color: white;
+}
 .label-list {
   &-item {
     border: 1px solid #a9a9a9;
@@ -211,5 +301,18 @@ export default {
       color: rgba(232, 118, 193, 1);
     }
   }
+}
+.team-main-color {
+  float: left;
+  width: 80rpx;
+  height: 20rpx;
+  margin-right: 20rpx;
+  border: 1px solid white;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+.select-icon {
+  width: 10px;
+  height: 10px;
 }
 </style>

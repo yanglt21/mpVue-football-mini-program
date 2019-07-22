@@ -3,6 +3,7 @@
     <div class="width-100 flex-row-y-center user-content">
       <button class="width-100 flex-row-y-center user-confirm-btn" 
               open-type="getUserInfo" @getuserinfo='handleLogin'
+              lang="zh_CN"
               v-if="!isLogin">
         <image class="user-icon" :src="userIcon" mode="widthFix"></image>
         <div class="login-btn">立即登录</div>

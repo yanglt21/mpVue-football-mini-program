@@ -4,7 +4,8 @@
     "pages/user/userCenter/main",
     "pages/data/home/main",
     "pages/user/userInformation/main",
-    "pages/team/createTeam/main"
+    "pages/team/createTeam/main",
+    "pages/team/teamPage/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
