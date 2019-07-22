@@ -9,8 +9,9 @@
          v-bind:key="index">
          <div>{{item.title}}</div>
          <div class="flex-row-y-center">
-           {{item.value}}
-           <div>></div>
+           <div>{{item.value}}</div>
+           <div style="margin-left: 10rpx" v-if="item.title === '年龄' || item.title === '场上位置'" 
+                :data-type="item.title" @click="handleChangeInfo">></div>
          </div>
     </div>
     <div class="width-90 log-out" @click="logout">退出登录</div>
@@ -94,8 +95,22 @@ export default {
         title: '年龄',
         value: userInfo.age || '编辑'
       }, {
-        title: '位置',
+        title: '场上位置',
         value: userInfo.position || '编辑'
+      })
+    },
+    handleChangeInfo (ev) {
+      let type = ev.currentTarget.dataset.type
+      switch (type) {
+        case '年龄':
+          type = 'age'
+          break
+        case '场上位置':
+          type = 'position'
+          break
+      }
+      wx.navigateTo({
+        url: '/pages/user/changeUserInformation/main?type=' + type
       })
     }
   },
