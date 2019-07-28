@@ -1,8 +1,11 @@
 <template>
   <div class="container flex-column-x-center">
     <div class="width-100 flex-column-x-center form-content">
-      <div class="width-90 flex-row-space-between information-cell">
-        <div class="choose-icon" @click="handleUpLoadImg"></div>
+      <div class="width-90 flex-row-center information-cell">
+        <div class="choose-icon" @click="handleUpLoadImg" v-if="teamIcon == ''"></div>
+        <image class="team-icon" :src="teamIcon" style="background-color:none"
+               mode="widthFix" v-else @click="handleUpLoadImg">
+        </image>
       </div>
       <div class="width-90 flex-row-space-between information-cell">
         <div class="information-cell-title">球队名</div>
@@ -86,11 +89,11 @@
 </template>
 
 <script>
+import WXFile from '../../../utils/fileUtil'
 const Area = require('../../../utils/area.js')
 let teamLocationTemp = {}
 const Url = require('../../../utils/Url')
 const Util = require('../../../utils/util')
-const file = require('../../../utils/fileUtil')
 const Model = require('../../../utils/model')
 export default {
   name: 'CreateTeam',
@@ -99,6 +102,7 @@ export default {
   data () {
     return {
       teamName: '',
+      teamIcon: '',
       teamIntroduce: '',
       showPopup: false,
       areaList: [],
@@ -229,8 +233,10 @@ export default {
       }
     },
     handleUpLoadImg () {
-      console.log(file)
-      file.chooseImageByWX()
+      WXFile.saveImage().then(res => {
+        const tempFilePaths = res.tempFilePaths
+        this.teamIcon = tempFilePaths[0]
+      })
     }
   },
   created () {},
@@ -325,9 +331,13 @@ export default {
   height: 10px;
 }
 .choose-icon {
-  width: 80rpx;
-  height: 80rpx;
+  width: 140rpx;
+  height: 140rpx;
   border-radius: 50%;
   background-color: royalblue;
+}
+.team-icon {
+  @extend .choose-icon ;
+  background-color: transparent;
 }
 </style>
