@@ -1,4 +1,4 @@
-// const Host = 'http://39.96.23.9:3000' // 正式线
+// const Host = 'http://www.majiaao.fun:3000' // 正式线
 const Host = 'http://localhost:3000' // 本地测试
 const HostDongQiuDi = 'https://api.dongqiudi.com/data/v1' // 懂球帝接口
 
@@ -12,6 +12,7 @@ const Url = {
   getUserInformation: Host + '/get/userInfomation',
   getCreateInfo: Host + '/team/createInfo',
   createTeam: Host + '/team/create',
-  getTeamBaseData: Host + '/team/data'
+  getTeamBaseData: Host + '/team/data',
+  changeUserInformation: Host + '/user/changeUserInformation'
 }
 module.exports = Url

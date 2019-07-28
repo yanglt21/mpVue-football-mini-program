@@ -2,6 +2,9 @@
   <div class="container flex-column-x-center">
     <div class="width-100 flex-column-x-center form-content">
       <div class="width-90 flex-row-space-between information-cell">
+        <div class="choose-icon" @click="handleUpLoadImg"></div>
+      </div>
+      <div class="width-90 flex-row-space-between information-cell">
         <div class="information-cell-title">球队名</div>
         <input type="text" class="information-cell-input" v-model="teamName">
       </div>
@@ -87,6 +90,7 @@ const Area = require('../../../utils/area.js')
 let teamLocationTemp = {}
 const Url = require('../../../utils/Url')
 const Util = require('../../../utils/util')
+const file = require('../../../utils/fileUtil')
 const Model = require('../../../utils/model')
 export default {
   name: 'CreateTeam',
@@ -223,6 +227,10 @@ export default {
       } else {
         this.awayColor = this.awayColor !== '' ? '' : color
       }
+    },
+    handleUpLoadImg () {
+      console.log(file)
+      file.chooseImageByWX()
     }
   },
   created () {},
@@ -253,6 +261,7 @@ export default {
   &-input {
     background-color: $base-color;
     color: rgba(188, 104, 234, 1);
+    text-align: right;
   }
   &-color {
     @extend .information-cell ;
@@ -314,5 +323,11 @@ export default {
 .select-icon {
   width: 10px;
   height: 10px;
+}
+.choose-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: royalblue;
 }
 </style>

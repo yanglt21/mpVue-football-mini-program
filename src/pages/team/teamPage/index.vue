@@ -19,7 +19,7 @@ export default {
   methods: {
     fetchTeamData () {
       this.$http.post(Url.getTeamBaseData, {
-        team_id: 6,
+        team_id: 18,
         open_id: Model.isLogin ? Model.openId : null
       }).then((res) => {
         if (res.data.status) {

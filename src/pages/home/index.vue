@@ -8,7 +8,7 @@
       :autoplay="swiperOption.autoplay"
       :circular="swiperOption.circular"
     ></my-swiper>     
-    <div class="width-100 flex-row box" v-if="!isLogin">
+    <div class="width-100 flex-row box">
       <div class="flex-row-center banner-btn" @click="handleCreateTeam" v-if="!isCreatedTeam">
         <image class="home-box-image" src="/static/images/create_team.png"></image>
         <span>创建球队</span>
@@ -21,6 +21,9 @@
         <image class="home-box-image" src="/static/images/join_team.png"></image>
         <span>加入球队</span>
       </div>
+    </div>
+    <div class="width-100 calendar" v-if="isLogin && (isCreatedTeam || isJoinTeam)">
+      <span class="calendar-title">近期活动</span>
     </div>
     <div class="football-data">
       
@@ -42,9 +45,10 @@ export default {
         autoplay: true,
         circular: true
       },
-      isLogin: false,
+      isLogin: Model.isLogin,
       showLoading: true,
-      isCreatedTeam: false
+      isCreatedTeam: false,
+      isJoinTeam: false
     }
   },
 
@@ -74,6 +78,7 @@ export default {
           const data = res.data.data
           this.bannerList = data.banner
           this.isCreatedTeam = data.is_created_team
+          this.isJoinTeam = data.team_info.length > 0
         } else {
           wx.showToast({
             title: res.data.msg
@@ -131,5 +136,8 @@ Page {
 .home-box-image {
   width: 40rpx;
   height: 40rpx;
+}
+.calendar {
+  color: white;
 }
 </style>
