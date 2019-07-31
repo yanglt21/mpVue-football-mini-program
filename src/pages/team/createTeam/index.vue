@@ -236,6 +236,9 @@ export default {
       WXFile.saveImage().then(res => {
         const tempFilePaths = res.tempFilePaths
         this.teamIcon = tempFilePaths[0]
+        WXFile.uploadFile(Url.upLoadFile, this.teamIcon, 'teamIcon').then(res => {
+          debugger
+        })
       })
     }
   },

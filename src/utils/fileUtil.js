@@ -15,6 +15,23 @@ const WXFIle = {
         complete: () => {}
       })
     })
+  },
+  uploadFile: function (url, filePath, name, formData = {}) {
+    return new Promise((resolve, reject) => {
+      wx.uploadFile({
+        url: url,
+        filePath: filePath,
+        name: name,
+        formData: formData,
+        success: (result) => {
+          resolve(result)
+        },
+        fail: (err) => {
+          reject(err)
+        },
+        complete: () => {}
+      })
+    })
   }
 }
 export default WXFIle
