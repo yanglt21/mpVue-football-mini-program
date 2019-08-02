@@ -1,7 +1,8 @@
 <template>
   <div class="container flex-column-x-center">
     <div class="width-90 my-team-container">
-      <div class="flex-column-center my-team-item" v-for="(item,index) in myTeamList" v-bind:key="index">
+      <div class="flex-column-center my-team-item" v-for="(item,index) in myTeamList" 
+           v-bind:key="index" @click="handleTeamPage" :data-id="item.team_Id">
         <div class="my-team-item-name">{{item.name}}</div>
         <div class="my-team-item-introduce">{{item.introduce}}</div>
       </div>
@@ -35,6 +36,12 @@ export default {
         } else {
           Util.showToast(res.data.msg)
         }
+      })
+    },
+    handleTeamPage (ev) {
+      const teamId = ev.currentTarget.dataset.id
+      wx.navigateTo({
+        url: '/pages/team/teamData/main?team_id=' + teamId
       })
     }
   },

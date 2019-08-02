@@ -15,6 +15,7 @@ const Url = {
   getTeamBaseData: Host + '/team/data',
   changeUserInformation: Host + '/user/changeUserInformation',
   upLoadFile: Host + '/file/upload/teamIcon',
-  getUserTeamData: Host + '/team/user'
+  getUserTeamData: Host + '/team/user',
+  getTeamData: Host + '/team/page/data'
 }
 module.exports = Url

@@ -6,7 +6,8 @@
     "pages/user/userInformation/main",
     "pages/team/createTeam/main",
     "pages/team/teamPage/main",
-    "pages/user/changeUserInformation/main"
+    "pages/user/changeUserInformation/main",
+    "pages/team/teamData/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
